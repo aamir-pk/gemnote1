@@ -1,11 +1,10 @@
 class JobsController < ApplicationController
-  before_action :set_job, only: [:show, :update, :destroy]
+  before_action :set_job, only: [:show]
 
   # GET /jobs
   def index
     @jobs = Job.all
     if params["lastmonth"] == '1'
-        puts "FILTER...."
       start_date = Date.today.last_month.beginning_of_month
       end_date   = Date.today.last_month.end_of_month
       @jobs = @jobs.where(:posted_on => start_date..end_date)
@@ -25,26 +24,13 @@ class JobsController < ApplicationController
   # POST /jobs
   def create
     @job = Job.new(job_params)
+    @job.posted_on = Date.today
 
     if @job.save
       render json: @job, status: :created, location: @job
     else
       render json: @job.errors, status: :unprocessable_entity
     end
-  end
-
-  # PATCH/PUT /jobs/1
-  def update
-    if @job.update(job_params)
-      render json: @job
-    else
-      render json: @job.errors, status: :unprocessable_entity
-    end
-  end
-
-  # DELETE /jobs/1
-  def destroy
-    @job.destroy
   end
 
   private
@@ -55,6 +41,6 @@ class JobsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def job_params
-      params.require(:job).permit(:title, :description, :company_name, :company_url, :posted_on, :job_type_id)
+      params.require(:job).permit(:title, :description, :company_name, :company_url, :job_type_id)
     end
 end
