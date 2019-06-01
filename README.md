@@ -1,24 +1,37 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Aa simple api backend for a job posting site
 
-Things you may want to cover:
+**Create job posting:**
 
-* Ruby version
+```
+https://gemnote1.herokuapp.com/jobs
+Method: POST
+Content-Type: application/json
+Body:
+{
+  "title": "S/W Engineer",
+  "description": "Looking for an experienced developer for a permanant assignment.",
+  "company_name": "Satterfield-Schaefer",
+  "company_url": "http://aamir.pk",
+  "posted_on": "2019-05-11",
+  "job_type_id": 1
+}
+```
 
-* System dependencies
+**View job posts**
 
-* Configuration
+Note: Both of the query parameters are optional
 
-* Database creation
+```
+https://gemnote1.herokuapp.com/jobs?job_type_id=2&lastmonth=1
 
-* Database initialization
+```
 
-* How to run the test suite
+**View job post by ID**
 
-* Services (job queues, cache servers, search engines, etc.)
+```
+https://gemnote1.herokuapp.com/jobs/3
+```
 
-* Deployment instructions
 
-* ...
