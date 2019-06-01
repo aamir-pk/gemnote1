@@ -3,12 +3,15 @@ class JobsController < ApplicationController
 
   # GET /jobs
   def index
-    if params.key? "lastmonth"
+    @jobs = Job.all
+    if params["lastmonth"] == '1'
+        puts "FILTER...."
       start_date = Date.today.last_month.beginning_of_month
       end_date   = Date.today.last_month.end_of_month
-      @jobs = Job.where(:posted_on => start_date..end_date)
-    else
-      @jobs = Job.all
+      @jobs = @jobs.where(:posted_on => start_date..end_date)
+    end
+    if params.key? "job_type_id"
+      @jobs = @jobs.where(:job_type_id => params["job_type_id"])
     end
 
     render json: @jobs
@@ -52,6 +55,6 @@ class JobsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def job_params
-      params.require(:job).permit(:title, :description, :company_name, :company_url, :posted_on)
+      params.require(:job).permit(:title, :description, :company_name, :company_url, :posted_on, :job_type_id)
     end
 end
