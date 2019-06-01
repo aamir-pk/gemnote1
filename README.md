@@ -14,7 +14,6 @@ Body:
   "description": "Looking for an experienced developer for a permanant assignment.",
   "company_name": "Satterfield-Schaefer",
   "company_url": "http://aamir.pk",
-  "posted_on": "2019-05-11",
   "job_type_id": 1
 }
 ```
